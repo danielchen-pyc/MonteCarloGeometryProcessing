@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
 	// load mesh
 	Eigen::MatrixXd V;
 	Eigen::MatrixXi F;
-	igl::read_triangle_mesh((argc > 1 ? argv[1] : "../../../data/cactus.obj"), V, F);
+	igl::read_triangle_mesh((argc > 1 ? argv[1] : "../data/cartoon-elephant.obj"), V, F);
 
 	igl::opengl::glfw::Viewer viewer;
 	const int xid = viewer.selected_data_index;

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.1)
 project(MonteCarloPDE)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake) 
 
+add_subdirectory(${PROJECT_SOURCE_DIR}/libigl)
+
 ### libIGL options: choose between header only and compiled static library
 set(LIBIGL ${PROJECT_SOURCE_DIR}/libigl)
 set(LIBIGL_INCLUDE_DIR ${LIBIGL}/include)
@@ -20,4 +22,4 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 file(GLOB SRCFILES src/*.cpp)
 
 add_executable(${PROJECT_NAME} "main.cpp" ${SRCFILES})
-target_link_libraries(${PROJECT_NAME} igl::core igl::opengl igl::opengl_glfw)
+target_link_libraries(${PROJECT_NAME} igl::core igl::opengl igl::glfw)

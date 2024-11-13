@@ -1,0 +1,4 @@
+_deps/
+build/
+libigl/
+.DS_Store
