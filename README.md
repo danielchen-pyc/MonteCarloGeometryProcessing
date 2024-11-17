@@ -12,7 +12,7 @@
 
 
 ## Introduction
-Course project for [CSC2520 Geometry Processing](https://github.com/alecjacobson/geometry-processing-csc2520).
+Course project for CSC2545 Topics in Computer Graphics: Physics-based Animation.
 
 An implementation based on the paper by Rohan Sawhney and Keenan Crane \
 ["Monte Carlo Geometry Processing: A Grid-Free Approach to PDE-Based Methods on Volumetric Domains"](https://www.cs.cmu.edu/~kmcrane/Projects/MonteCarloGeometryProcessing/paper.pdf)
