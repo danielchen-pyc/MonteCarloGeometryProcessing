@@ -12,10 +12,12 @@
 
 
 ## Introduction
-Course project for CSC2545 Topics in Computer Graphics: Physics-based Animation.
+Course project for CSC2521 Topics in Computer Graphics: Physics-based Animation.
 
 An implementation based on the paper by Rohan Sawhney and Keenan Crane \
 ["Monte Carlo Geometry Processing: A Grid-Free Approach to PDE-Based Methods on Volumetric Domains"](https://www.cs.cmu.edu/~kmcrane/Projects/MonteCarloGeometryProcessing/paper.pdf)
+
+This project was forked and build on top of [this repo](https://github.com/hgeorge21/MonteCarloGeometryProcessing).
 
 ## Compilation
 This project makes use of open-source libraries `libigl` and `Eigen` which will be included by cloning `libigl` repository.

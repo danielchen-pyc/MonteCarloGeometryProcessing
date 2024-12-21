@@ -66,6 +66,11 @@
         "unordered_map": "cpp",
         "variant": "cpp",
         "algorithm": "cpp",
-        "alignedvector3": "cpp"
+        "alignedvector3": "cpp",
+        "any": "cpp",
+        "regex": "cpp",
+        "span": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp"
     }
 }

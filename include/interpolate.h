@@ -19,6 +19,6 @@ void interpolate(
         const Eigen::Vector3d& X0,
         const Eigen::Vector3d& X1,
         const Eigen::Vector3d& X2,
-        Eigen::Vector3d& phi);
+        Eigen::VectorXd& phi);
 
 #endif // !INTERPOLATE_H

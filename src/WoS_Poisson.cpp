@@ -26,7 +26,7 @@ void WoS_Poisson(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F, const Eigen
     U = Eigen::VectorXd::Zero(P.rows());
 
     const auto &handle_pts = [&](const Eigen::VectorXi &I_) {
-        Eigen::Vector3d phi;
+        Eigen::VectorXd phi;
         for (int j = 0; j < I_.rows(); j++) {
             // interpolate between the three vertices and find value
             int f = I_(j);

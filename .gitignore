@@ -2,3 +2,4 @@ build/
 cmake/
 libigl/
 .DS_Store
+.vscode/

@@ -21,10 +21,6 @@ include_directories("${CMAKE_CURRENT_SOURCE_DIR}/")
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/include/")
 file(GLOB SRCFILES src/*.cpp)
 
-<<<<<<< HEAD
 # add_executable(${PROJECT_NAME} "main.cpp" ${SRCFILES})
 add_executable(${PROJECT_NAME} "bary_rkpm.cpp" ${SRCFILES})
-=======
-add_executable(${PROJECT_NAME} "main.cpp" ${SRCFILES})
->>>>>>> b9ef8f0dc1a715e6475eb2d7dac2e90d589bbb14
 target_link_libraries(${PROJECT_NAME} igl::core igl::opengl igl::glfw)

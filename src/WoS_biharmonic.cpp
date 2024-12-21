@@ -33,7 +33,7 @@ void WoS_biharmonic(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F,
 
     const auto &handle_boundary_pts = [&](const Eigen::MatrixXd &B_, const Eigen::MatrixXd &C_,
             const Eigen::VectorXi &I_, Eigen::VectorXd &U_) {
-        Eigen::Vector3d phi;
+        Eigen::VectorXd phi;
         for (int j = 0; j < I_.rows(); j++) {
             // interpolate between the three vertices and find value
             int f = I_(j);
