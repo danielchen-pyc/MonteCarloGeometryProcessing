@@ -6,7 +6,7 @@ Course project for CSC2521 Topics in Computer Graphics: Physics-based Animation.
 An implementation based on the paper by Rohan Sawhney and Keenan Crane \
 ["Monte Carlo Geometry Processing: A Grid-Free Approach to PDE-Based Methods on Volumetric Domains"](https://www.cs.cmu.edu/~kmcrane/Projects/MonteCarloGeometryProcessing/paper.pdf)
 
-**This project was forked and build on top of [this repo](https://github.com/hgeorge21/MonteCarloGeometryProcessing). Most of the Monte Carlo Method are implemented from this code. **
+**This project was forked and build on top of [this repo](https://github.com/hgeorge21/MonteCarloGeometryProcessing). Most of the Monte Carlo Method are implemented from this code.**
 
 ## System Info
 Tested on 
