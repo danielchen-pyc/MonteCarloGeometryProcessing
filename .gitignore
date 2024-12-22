@@ -3,3 +3,7 @@ cmake/
 libigl/
 .DS_Store
 .vscode/
+extra/
+images/
+entry.md
+main.cpp

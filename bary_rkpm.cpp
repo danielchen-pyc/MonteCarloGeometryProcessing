@@ -80,13 +80,12 @@ void computeMmv(
     for (int xi = 0; xi < samplePoints.size(); xi++) {
         bary_coordinates.push_back(Eigen::MatrixXd::Zero(n_v, d));
         for (size_t v = 0; v < vertexBasis[xi].cols(); v++) {
-            Eigen::MatrixXd M_v = Eigen::MatrixXd::Zero(d + 1, d + 1);
-            Eigen::VectorXd m_v = Eigen::VectorXd::Zero(d + 1);
+            Eigen::MatrixXd M_v = Eigen::MatrixXd::Zero(d+1, d+1);
+            Eigen::VectorXd m_v = Eigen::VectorXd::Zero(d+1);
             bool test = false;
             for (size_t k = 0; k < vertexBasis[xi].rows(); k++) {
                 Eigen::VectorXd y_0 = samplePoints[xi].row(k);
                 double phi = vertexBasis[xi](k, v);
-                // Eigen::VectorXd weight = weights.row(k);
     
                 Eigen::VectorXd y(d+1);
                 y << y_0, 1;
@@ -94,7 +93,6 @@ void computeMmv(
                 // Update M(x)
                 M_v += y * y.transpose();
                 
-                // phi << phi_0(0), phi_0(1), phi_0(2), 0;
                 // Update m(x)
                 if (phi != 0.0) {
                     std::cout << phi << std::endl;
@@ -120,7 +118,10 @@ void computeMmv(
             }
             bary_coordinates[xi].row(v) = bary_cord;
         }
+        std::cout << "Bary step: " << xi << std::endl;
     }
+
+    std::cout << "Bary Completed! " << std::endl;
 }
 
 void reorganize_walks_by_point(
@@ -162,16 +163,8 @@ void reorganize_walks_by_point(
             scalars_by_point[p].row(walk) = value[walk].transpose();
     }
 
-    // for (auto const& x: basis_fn_d) {
-    //     int p = x.first;
-    //     std::vector<Eigen::MatrixXd> value = x.second;
-    //     for (int walk = 0; walk < value.size(); walk++)
-    //         basis_fn_by_point[p].row(walk) = value[walk].transpose();
-    // }
-
     std::cout << "sampled_yk_by_point is a " << sampled_yk_by_point.size() << "x" << sampled_yk_by_point[0].rows() << "x" << sampled_yk_by_point[0].cols() << std::endl;
     std::cout << "scalars_by_point is a " << scalars_by_point.size() << "x" << scalars_by_point[0].rows() << "x" << scalars_by_point[0].cols() << std::endl;
-    // std::cout << "basis_fn_by_point is a " << basis_fn_by_point.size() << "x" << basis_fn_by_point[0].rows() << "x" << basis_fn_by_point[0].cols() << std::endl;
 }
 
 
@@ -275,10 +268,10 @@ X,x     Switch between regular Poisson and Screened Poisson
     Eigen::MatrixXd SV;
     Eigen::MatrixXi SF;
 
-	igl::read_triangle_mesh("../data/bread.obj", V, F);
+	igl::read_triangle_mesh("../data/teapot.obj", V, F);
 
     // Get Bounding Mesh
-	igl::read_triangle_mesh("../data/bread-offset.obj", SV, SF);
+	igl::read_triangle_mesh("../data/teapot-offset.obj", SV, SF);
 
     // Merge The meshes
     Eigen::MatrixXd mergedV(V.rows() + SV.rows(), V.cols());
@@ -404,7 +397,10 @@ X,x     Switch between regular Poisson and Screened Poisson
     
         // Compute the vertex-based basis functions
         std::cout << "Computing Basis Functions" << std::endl;
-        computeVertexBasedBasisFunctions(SV, SF, sampled_yk_by_point[0], basis_fn_by_point[0]);
+        for (int i = 0; i < sampled_yk_by_point.size(); i++) {
+            computeVertexBasedBasisFunctions(SV, SF, sampled_yk_by_point[i], basis_fn_by_point[i]);
+            std::cout << "Basis Function: " << i << std::endl;
+        }
         std::cout << "Completed: Basis Functions" << std::endl;
 
         // RKPM Method
@@ -418,16 +414,18 @@ X,x     Switch between regular Poisson and Screened Poisson
         for (int i = 0; i < bary_coordinates.size(); i++) {
             Eigen::MatrixXd CM;
             Eigen::MatrixXd points = bary_coordinates[i];
-            // points.row(0) = bary_cord;
             const Eigen::RowVector3d orange(1.0, 0.7, i / bary_coordinates.size());
 
             // igl::colormap(cmap_type, points, min_scale, max_scale, CM);
             viewer.data_list[xid].add_points(points, (1. - (1. - orange.array()) * .8));
+            // viewer.data_list[xid].add_points(sampled_yk_by_point[i], (1. - (1. - orange.array()) * .8));
         }
+
+        std::cout << "Added " << bary_coordinates.size() * bary_coordinates[0].rows() << " points" << std::endl;
 	
         igl::colormap(cmap_type, boundary, min_scale, max_scale, BCM);
         if (show_boundary)
-            viewer.data_list[yid].set_points(V, BCM);
+            viewer.data_list[yid].set_points(SV, BCM);
 	};
 
     // updates
@@ -514,20 +512,8 @@ X,x     Switch between regular Poisson and Screened Poisson
 
 
     // RKPM
-    Eigen::VectorXd queryPoint = Eigen::VectorXd::Random(dimension);
-
     // Parameters
     double sigma = 0.1; // Kernel bandwidth
-
-    // Compute M(x) and m(x)
-    // Eigen::MatrixXd M;
-    // Eigen::VectorXd m;
-    // computeMmv(samplePoints, vertexBasis, queryPoint, weights, M, m, sigma);
-
-    // // Compute u_v(x)
-    // Eigen::VectorXd uv = computeUV(M, m);
-
-    // TODO: Figure out above
 
     viewer.data().set_mesh(SV, SF);
     // viewer.data().add_points(SV, Eigen::RowVector3d(1,0,0));
@@ -542,41 +528,3 @@ X,x     Switch between regular Poisson and Screened Poisson
 
 	return EXIT_SUCCESS;
 }
-
-
-
-// // Main function
-// int main() {
-//     // Example setup
-//     size_t numSamples = 100; // Number of cage sample points
-//     size_t dimension = 2;    // Dimension of the problem (e.g., 2D)
-
-//     // Generate some sample points (example)
-//     vector<Eigen::VectorXd> samplePoints(numSamples);
-//     vector<Eigen::VectorXd> vertexBasis(numSamples);
-//     vector<double> weights(numSamples, 1.0); // Uniform weights
-
-//     for (size_t i = 0; i < numSamples; ++i) {
-//         samplePoints[i] = Eigen::VectorXd::Random(dimension);
-//         vertexBasis[i] = Eigen::VectorXd::Random(dimension);
-//     }
-
-//     // Query point
-//     Eigen::VectorXd queryPoint = Eigen::VectorXd::Random(dimension);
-
-//     // Parameters
-//     double sigma = 0.1; // Kernel bandwidth
-
-//     // Compute M(x) and m(x)
-//     Eigen::MatrixXd M;
-//     Eigen::VectorXd m;
-//     computeMmv(samplePoints, vertexBasis, queryPoint, weights, M, m, sigma);
-
-//     // Compute u_v(x)
-//     Eigen::VectorXd uv = computeUV(M, m);
-
-//     // Output the result
-//     cout << "Computed u_v(x): \n" << uv << endl;
-
-//     return 0;
-// }
