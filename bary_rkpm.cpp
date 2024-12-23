@@ -268,10 +268,10 @@ X,x     Switch between regular Poisson and Screened Poisson
     Eigen::MatrixXd SV;
     Eigen::MatrixXi SF;
 
-	igl::read_triangle_mesh("../data/teapot.obj", V, F);
+	igl::read_triangle_mesh("../data/bunny.obj", V, F);
 
     // Get Bounding Mesh
-	igl::read_triangle_mesh("../data/teapot-offset.obj", SV, SF);
+	igl::read_triangle_mesh("../data/bunny-offset.obj", SV, SF);
 
     // Merge The meshes
     Eigen::MatrixXd mergedV(V.rows() + SV.rows(), V.cols());
